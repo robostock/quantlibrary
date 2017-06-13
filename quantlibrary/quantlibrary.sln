@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "quantlibrary", "quantlibrary\quantlibrary.csproj", "{336F46E6-3595-446A-8E19-0FF5D6B1815F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "quantlibtest", "quantlibtest\quantlibtest.csproj", "{AE8B3AF3-0135-43E2-AD97-B09AA0592D08}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{336F46E6-3595-446A-8E19-0FF5D6B1815F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{336F46E6-3595-446A-8E19-0FF5D6B1815F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{336F46E6-3595-446A-8E19-0FF5D6B1815F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE8B3AF3-0135-43E2-AD97-B09AA0592D08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE8B3AF3-0135-43E2-AD97-B09AA0592D08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE8B3AF3-0135-43E2-AD97-B09AA0592D08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE8B3AF3-0135-43E2-AD97-B09AA0592D08}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

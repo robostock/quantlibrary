@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace quantlibrary
+namespace MarketDataProviders
 {
-    public class Class1
+    public interface MarketDataProvider
     {
+        public GetSecurityPrice(se)
     }
 }
