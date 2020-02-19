@@ -14,10 +14,10 @@ namespace quantlibrary
 
     public class PortfolioItem
     {
-        public DateTime datetime;
-        public Security security;
-        public int? count;
-        public double? weight;
+        public DateTime datetime { get; set; }
+        public Security security { get; set; }
+        public int? count { get; set; }
+        public double? weight { get; set; }
     }
 
     public class Portfolio
@@ -60,7 +60,7 @@ namespace quantlibrary
                 comis = comission.comission(sec, count);
             }
 
-            if(items.Count==0)
+            if(items.Count(i=>i.security.SecCode==sec.SecCode)==0)
             {
                 items.Add(pi);
                 money -= count * price * (int)operationtype - comis;
@@ -134,6 +134,14 @@ namespace quantlibrary
             return 0;
         }
 
+        public List<PortfolioItem> GetPortfolioItems()
+        {
+            List<PortfolioItem> res = new List<PortfolioItem>();
+            res.AddRange(items);
+            res.Add(new PortfolioItem() { security = new Security() { LotSize = 1, Price = 1, SecCode = "Money" }, count = (int)money, weight = money_weight });
+            return res;
+        }
+
         public double LiquidationValue()
         {
             if (items.Count ==0 )
@@ -151,12 +159,12 @@ namespace quantlibrary
                 {
                     if (pi.count.HasValue)
                     {
-                        retval += pi.security.MarketDataProvider.GetSecurityPrice(actualitemdate,ref pi.security) * pi.count.Value;
+                        retval += pi.security.MarketDataProvider.GetSecurityPrice(actualitemdate,/*ref*/ pi.security) * pi.count.Value;
                         ret_absolutevalue = true;
                     }
                     else if(pi.weight.HasValue)
                     {
-                        retval_weight += pi.security.MarketDataProvider.GetSecurityPrice(actualitemdate, ref pi.security) * pi.weight.Value;
+                        retval_weight += pi.security.MarketDataProvider.GetSecurityPrice(actualitemdate, /*ref*/ pi.security) * pi.weight.Value;
                     }
 
                 }
@@ -191,14 +199,14 @@ namespace quantlibrary
                 {
                     if (pi.count.HasValue)
                     {
-                        double price = pi.security.MarketDataProvider.GetSecurityPrice(LiquidationDateTime, ref pi.security);
+                        double price = pi.security.MarketDataProvider.GetSecurityPrice(LiquidationDateTime, /*ref*/ pi.security);
 
                         retval +=  price * pi.count.Value;
                         ret_absolutevalue = true;
                     }
                     else if (pi.weight.HasValue)
                     {
-                        retval_weight += pi.security.MarketDataProvider.GetSecurityPrice(LiquidationDateTime, ref pi.security) * pi.weight.Value;
+                        retval_weight += pi.security.MarketDataProvider.GetSecurityPrice(LiquidationDateTime, /*ref*/ pi.security) * pi.weight.Value;
                     }
 
                 }

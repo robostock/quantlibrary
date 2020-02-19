@@ -20,18 +20,18 @@ namespace quantlibtest
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string[] deals = System.IO.File.ReadAllLines(@"D:\Temp\dealsfortest.csv",Encoding.Unicode);
+            string[] deals = System.IO.File.ReadAllLines(@"D:\Temp\wsdeals.txt",Encoding.Unicode);
             List<string> equity = new List<string>();
 
             Deals alldeals = new Deals();
             Portfolio port = new Portfolio("testportfolio");
-            TXTMarektDataProvider txtmdp = new TXTMarektDataProvider(@"D:\Temp\trnfp");
+            TXTMarektDataProvider txtmdp = new TXTMarektDataProvider(@"D:\Market Data\WallStreet");
 
             for (int i = 1; i < deals.Length; i++)
             {
                 //Position;Symbol;Quantity;Entry Date;Entry Price;Exit Date;Exit Price;
                 //Short;TRNFP_2016_5m;49;14.01.2016 14:50;201 600,00;19.01.2016 11:50;211 400,00;-4,92;-486 271,10 ?;268;-1 814,44 ?;sell at limit;stop buy at limit;-4,89;-0,03
-                string[] items = deals[i].Split(';');
+                string[] items = deals[i].Split('\t');// ';');
                 DateTime datetime = DateTime.Parse(items[3]);
                 DateTime datetimeclose = DateTime.Parse(items[5]);
 
@@ -67,7 +67,7 @@ namespace quantlibtest
                 foreach(Deal deal in dealitems)
                 {
                     double liquidationvalue = port.LiquidationValue();
-                    int count = (int)Math.Floor(( liquidationvalue / deal.price));
+                    int count = (int)Math.Floor(( liquidationvalue / deal.price/8.33));
 
                     if (port.CurrentPositionCount(deal.security.SecCode) == 0)
                     {
@@ -102,6 +102,8 @@ namespace quantlibtest
 
             System.IO.File.WriteAllLines(@"d:\eq.txt",equity.ToArray());
             //TXTMarektDataProvider mdp = new TXTMarektDataProvider(@"D:\Market Data\Российские рынки\micex 5min");
+            button1.Text = port.GetPortfolioItems().ToArray()[12].security.SecCode;
+            this.Text = port.GetPortfolioItems().ToArray()[12].count.ToString();
         }
     }
 }
